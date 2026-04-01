@@ -1,0 +1,269 @@
+@import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700&family=Sora:wght@300;400;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  font-family: "Sora", system-ui, sans-serif;
+  background: #05060b;
+}
+
+.font-display {
+  font-family: "Oxanium", "Sora", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.glow-text {
+  text-shadow: 0 0 22px rgba(120, 220, 255, 0.45);
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  opacity: 0.25;
+  mix-blend-mode: screen;
+}
+
+.hologram-sheen {
+  background: linear-gradient(130deg, rgba(120, 220, 255, 0.2), rgba(147, 79, 255, 0.2), transparent 60%);
+  animation: sheen 6s ease-in-out infinite;
+}
+
+.neon-border {
+  border: 1px solid rgba(120, 220, 255, 0.3);
+  box-shadow: 0 0 18px rgba(90, 220, 255, 0.45), inset 0 0 30px rgba(140, 90, 255, 0.15);
+  animation: borderPulse 4s ease-in-out infinite;
+}
+
+.chip {
+  display: inline-flex;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.game-swiper {
+  padding: 2rem 0 3rem;
+}
+
+.game-slide {
+  width: auto;
+  filter: blur(1.6px) saturate(0.8);
+  opacity: 0.6;
+  transition: filter 0.6s ease, opacity 0.6s ease, transform 0.6s ease;
+}
+
+.game-slide.swiper-slide-active {
+  filter: blur(0) saturate(1.1);
+  opacity: 1;
+}
+
+.hud-panel {
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(90, 220, 255, 0.35);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(180, 255, 255, 0.8);
+  background: rgba(8, 14, 26, 0.7);
+  box-shadow: 0 0 30px rgba(90, 220, 255, 0.2);
+}
+
+.hud-line {
+  width: 160px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(90, 220, 255, 0.1), rgba(90, 220, 255, 0.8), rgba(90, 220, 255, 0.1));
+  filter: blur(0.4px);
+}
+
+.hud-ring {
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  border: 1px dashed rgba(120, 220, 255, 0.4);
+  box-shadow: 0 0 30px rgba(120, 220, 255, 0.25);
+  animation: ringSpin 16s linear infinite;
+}
+
+.radial-grid {
+  background-image: radial-gradient(circle at center, rgba(90, 220, 255, 0.15) 0%, transparent 60%);
+  filter: blur(0.6px);
+}
+
+.radial-chip {
+  position: absolute;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(220, 255, 255, 0.9);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+.radial-chip-active {
+  border-color: rgba(120, 220, 255, 0.7);
+  box-shadow: 0 0 35px rgba(120, 220, 255, 0.45);
+}
+
+.glow-ring {
+  box-shadow: 0 0 40px rgba(120, 220, 255, 0.35), inset 0 0 20px rgba(120, 220, 255, 0.2);
+}
+
+.button-glow {
+  position: relative;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 220, 255, 0.45);
+  background: rgba(12, 18, 30, 0.6);
+  color: #e6fbff;
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-glow:hover {
+  box-shadow: 0 0 25px rgba(120, 220, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+.button-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(120, 220, 255, 0.45), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.button-glow:hover::after {
+  opacity: 0.5;
+}
+
+.button-primary {
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  background: linear-gradient(120deg, rgba(120, 220, 255, 0.95), rgba(140, 90, 255, 0.95));
+  color: #05060b;
+  box-shadow: 0 10px 40px rgba(120, 220, 255, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 15px 50px rgba(120, 220, 255, 0.45);
+}
+
+.video-vignette {
+  background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.45) 80%);
+}
+
+@keyframes sheen {
+  0% {
+    transform: translateX(-30%) rotate(0deg);
+  }
+  50% {
+    transform: translateX(20%) rotate(8deg);
+  }
+  100% {
+    transform: translateX(-30%) rotate(0deg);
+  }
+}
+
+@keyframes borderPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 16px rgba(90, 220, 255, 0.4), inset 0 0 24px rgba(140, 90, 255, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(120, 220, 255, 0.7), inset 0 0 36px rgba(140, 90, 255, 0.22);
+  }
+}
+
+@keyframes ringSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.buffer-track {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.buffer-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(120, 220, 255, 0.25), rgba(120, 220, 255, 0.6));
+  box-shadow: 0 0 12px rgba(120, 220, 255, 0.35);
+}
+
+.playhead {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(140, 90, 255, 0.9), rgba(120, 220, 255, 0.9));
+  box-shadow: 0 0 14px rgba(140, 90, 255, 0.45);
+}
+
+
+.ui-enter {
+  animation: uiEnter 0.9s ease forwards;
+}
+
+.card-active {
+  animation: subtleFloat 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes uiEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-enter,
+  .card-active {
+    animation: none !important;
+  }
+}
