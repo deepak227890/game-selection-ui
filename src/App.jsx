@@ -1,141 +1,146 @@
-import { useMemo, useRef, useState } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
-import GameCarousel from "./components/GameCarousel";
+import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import VideoPlayer from "./components/VideoPlayer";
-import FloatingLayer from "./components/FloatingLayer";
-import RadialSelector from "./components/RadialSelector";
 import AmbientParticles from "./components/AmbientParticles";
 import { games } from "./data/games";
 
 export default function App() {
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [videoOpen, setVideoOpen] = useState(false);
-  const [mode, setMode] = useState("carousel");
-  const [previewOnHover, setPreviewOnHover] = useState(true);
 
   const selected = games[selectedIndex];
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const parallaxX = useSpring(x, { stiffness: 60, damping: 20 });
-  const parallaxY = useSpring(y, { stiffness: 60, damping: 20 });
-  const reduceMotion = useReducedMotion();
-  const rafRef = useRef(0);
-
-  const onSelect = (index, open) => {
-    setSelectedIndex(index);
-    if (open) setVideoOpen(true);
-  };
-
-  const onMove = (e) => {
-    if (reduceMotion) return;
-    if (rafRef.current) return;
-    rafRef.current = requestAnimationFrame(() => {
-      const { innerWidth, innerHeight } = window;
-      const offsetX = (e.clientX - innerWidth / 2) * 0.02;
-      const offsetY = (e.clientY - innerHeight / 2) * 0.02;
-      x.set(offsetX);
-      y.set(offsetY);
-      rafRef.current = 0;
-    });
-  };
+  const nextGame = games[(selectedIndex + 1) % games.length];
 
   const dynamicBackground = useMemo(() => {
     return {
-      backgroundImage: `${selected.backdrop}, radial-gradient(1200px circle at 70% 30%, ${selected.accent}33, transparent 60%), radial-gradient(900px circle at 20% 80%, ${selected.color}22, transparent 55%)`,
+      backgroundImage: `radial-gradient(900px circle at 15% 30%, rgba(220, 70, 70, 0.32), transparent 65%), radial-gradient(900px circle at 85% 35%, rgba(60, 220, 120, 0.3), transparent 60%), ${selected.backdrop}`,
     };
   }, [selected]);
 
   return (
-    <div
-      className="min-h-screen w-full bg-black text-white overflow-hidden"
-      onMouseMove={onMove}
-    >
+    <div className="app-shell">
       <motion.div
         className="absolute inset-0 transition-colors duration-700"
         style={dynamicBackground}
       />
-
+      <div className="absolute inset-0 grid-overlay" />
       <div className="absolute inset-0 bg-noise" />
       <AmbientParticles />
 
-      <FloatingLayer parallaxX={parallaxX} parallaxY={parallaxY} />
+      <div className="corner corner-tl" />
+      <div className="corner corner-tr" />
+      <div className="corner corner-bl" />
+      <div className="corner corner-br" />
 
-      <main className="relative z-20 min-h-screen w-full px-6 md:px-10 pt-8 pb-16 ui-enter">
-        <header className="flex items-center justify-between">
-          <div>
-            <div className="text-xs uppercase tracking-[0.4em] text-cyan-200/70">
-              NovaCore
-            </div>
-            <div className="text-2xl md:text-3xl font-display">Game Library</div>
+      <main className="relative z-20 min-h-screen w-full px-6 md:px-12 pt-6 pb-16 ui-enter">
+        <header className="hud-top">
+          <button type="button" className="icon-button" aria-label="Grid menu">
+            <span className="icon-grid" />
+          </button>
+          <div className="hud-title">
+            <span className="hud-title-text">SELECT YOUR GAME</span>
           </div>
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="button-glow"
-              onClick={() => setPreviewOnHover((v) => !v)}
-            >
-              Preview: {previewOnHover ? "On" : "Off"}
-            </button>
-            <button
-              type="button"
-              className="button-glow"
-              onClick={() =>
-                setMode((m) => (m === "carousel" ? "radial" : "carousel"))
-              }
-            >
-              Mode: {mode === "carousel" ? "Carousel" : "Radial"}
-            </button>
-          </div>
+          <button type="button" className="icon-button" aria-label="More options">
+            <span className="icon-menu"><span /></span>
+          </button>
         </header>
 
-        <section className="mt-10 md:mt-16">
-          {mode === "carousel" ? (
-            <GameCarousel
-              games={games}
-              selectedIndex={selectedIndex}
-              onSelect={onSelect}
-              previewOnHover={previewOnHover}
-            />
-          ) : (
-            <RadialSelector
-              games={games}
-              selectedIndex={selectedIndex}
-              onSelect={onSelect}
-            />
-          )}
+        <section className="mt-8">
+          <div className="text-sm uppercase tracking-[0.35em] text-white/60">
+            {selected.title}
+          </div>
+          <div className="mt-2 inline-flex items-center gap-3">
+            <span className="mode-pill">Competition Mode</span>
+            <span className="text-white/60 text-xs tracking-[0.3em] uppercase">
+              Tap your card to add players. You can have up to 2 players in each team.
+            </span>
+          </div>
         </section>
 
-        <section className="mt-10 md:mt-16 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div>
-            <div className="text-xs uppercase tracking-[0.35em] text-white/60">
-              Selected
-            </div>
-            <div className="text-3xl md:text-4xl font-display glow-text">
-              {selected.title}
-            </div>
-            <div className="mt-2 text-white/70">{selected.meta}</div>
-          </div>
-          <div className="flex gap-3">
-            <button
-              type="button"
-              className="button-primary"
-              onClick={() => setVideoOpen(true)}
+        <section className="game-stage">
+          <motion.button
+            type="button"
+            className="game-panel game-panel-primary"
+            onClick={() => setVideoOpen(true)}
+            whileHover={{ y: -6 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div
+              className="game-panel__top"
+              style={{ backgroundColor: selected.color }}
+            />
+            <div
+              className="game-panel__body"
+              style={{ backgroundImage: `url(${selected.poster})` }}
             >
-              Enter World
-            </button>
-            <button type="button" className="button-glow">
-              Add to Queue
-            </button>
-          </div>
-        </section>
-      </main>
+              <div className="game-panel__overlay" />
+              <div className="game-panel__content">
+                <div className="how-to-play">HOW TO PLAY</div>
+                <div className="game-title">{selected.title.toUpperCase()}</div>
+              </div>
+            </div>
+            <div className="game-panel__footer">
+              <div className="footer-title">{selected.title}</div>
+              <div className="footer-meta">
+                PLAYERS: 2-4 &nbsp; ROUNDS: 10+ &nbsp; AGE: 6+
+              </div>
+            </div>
+          </motion.button>
 
-      {/* Preload videos for smoother cinematic transitions */}
-      <div className="hidden">
-        {games.map((game) => (
-          <video key={game.id} src={game.video} preload="auto" />
-        ))}
-      </div>
+          <motion.button
+            type="button"
+            className="game-panel game-panel-secondary"
+            onClick={() => setSelectedIndex((i) => (i + 1) % games.length)}
+            whileHover={{ y: -6 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div
+              className="game-panel__top"
+              style={{ backgroundColor: nextGame.color }}
+            />
+            <div
+              className="game-panel__body"
+              style={{ backgroundImage: `url(${nextGame.poster})` }}
+            >
+              <div className="game-panel__overlay" />
+              <div className="game-panel__content">
+                <div className="game-title">{nextGame.title.toUpperCase()}</div>
+              </div>
+            </div>
+            <div className="game-panel__footer">
+              <div className="footer-title">{nextGame.title}</div>
+            </div>
+          </motion.button>
+        </section>
+
+        <div className="game-controls">
+          <button
+            type="button"
+            className="arrow-button"
+            onClick={() =>
+              setSelectedIndex((i) => (i - 1 + games.length) % games.length)
+            }
+            aria-label="Previous game"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            className="start-button"
+            onClick={() => setVideoOpen(true)}
+          >
+            START GAME
+          </button>
+          <button
+            type="button"
+            className="arrow-button"
+            onClick={() => setSelectedIndex((i) => (i + 1) % games.length)}
+            aria-label="Next game"
+          >
+            ›
+          </button>
+        </div>
+      </main>
 
       <VideoPlayer
         open={videoOpen}
