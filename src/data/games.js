@@ -1,63 +1,53 @@
-// Video placeholders using standard free cinematic stock videos or game trailers
-export const GAMES_DATA = [
+// Replace these with your real asset files under /public/assets/games/...
+export const games = [
   {
-    id: "g1",
-    title: "CYBERPUNK NEXT",
-    studio: "NEON STUDIOS",
-    releaseYear: "2077",
-    meta: "RPG / Open World",
-    poster: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop",
-    bgUrl: "https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?q=80&w=2070&auto=format&fit=crop",
-    preview: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4",
-    themeColor: "from-cyan-500/30 to-purple-600/30",
-    accent: "#00ffff", // cyan
+    id: "lumen-drift",
+    title: "Lumen Drift",
+    meta: "Action • 4K • HDR",
+    color: "#62D8FF",
+    accent: "#8A5CFF",
+    poster: "/assets/games/lumen-drift/poster.jpg",
+    preview: "/assets/games/lumen-drift/preview.mp4",
+    video: "/assets/games/lumen-drift/trailer.mp4",
+    backdrop:
+      "linear-gradient(120deg, rgba(10,10,20,0.92), rgba(24,13,40,0.92))",
   },
   {
-    id: "g2",
-    title: "SPACE ODYSSEY",
-    studio: "ORBITAL",
-    releaseYear: "2026",
-    meta: "Sci-Fi / Exploration",
-    poster: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=1974&auto=format&fit=crop",
-    bgUrl: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2022&auto=format&fit=crop",
-    preview: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4",
-    themeColor: "from-blue-600/30 to-indigo-900/30",
-    accent: "#4f46e5", // indigo
+    id: "aurora-veil",
+    title: "Aurora Veil",
+    meta: "Adventure • 3D Audio",
+    color: "#5CF3FF",
+    accent: "#3C6CFF",
+    poster: "/assets/games/aurora-veil/poster.jpg",
+    preview: "/assets/games/aurora-veil/preview.mp4",
+    video: "/assets/games/aurora-veil/trailer.mp4",
+    backdrop:
+      "linear-gradient(140deg, rgba(6,10,20,0.92), rgba(8,28,48,0.92))",
   },
   {
-    id: "g3",
-    title: "NEON DRIFT",
-    studio: "VELOCITY INC",
-    releaseYear: "2025",
-    meta: "Racing / Arcade",
-    poster: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071&auto=format&fit=crop",
-    bgUrl: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2214&auto=format&fit=crop",
-    preview: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4",
-    themeColor: "from-pink-500/30 to-rose-700/30",
-    accent: "#ec4899", // pink
+    id: "nocturne-zero",
+    title: "Nocturne Zero",
+    meta: "RPG • Ray Traced",
+    color: "#9F6BFF",
+    accent: "#3EEBFF",
+    poster: "/assets/games/nocturne-zero/poster.jpg",
+    preview: "/assets/games/nocturne-zero/preview.mp4",
+    video: "/assets/games/nocturne-zero/trailer.mp4",
+    backdrop:
+      "linear-gradient(135deg, rgba(5,7,16,0.92), rgba(35,16,56,0.92))",
   },
   {
-    id: "g4",
-    title: "ECHOES OF WAR",
-    studio: "TACTICAL CO",
-    releaseYear: "2024",
-    meta: "FPS / Action",
-    poster: "https://images.unsplash.com/photo-1582041235450-938676bfef82?q=80&w=2070&auto=format&fit=crop",
-    bgUrl: "https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=2070&auto=format&fit=crop",
-    preview: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4",
-    themeColor: "from-orange-500/30 to-red-600/30",
-    accent: "#f97316", // orange
+    id: "helios-run",
+    title: "Helios Run",
+    meta: "Racer • 120 FPS",
+    color: "#6EE8FF",
+    accent: "#8B5BFF",
+    poster: "/assets/games/helios-run/poster.jpg",
+    preview: "/assets/games/helios-run/preview.mp4",
+    video: "/assets/games/helios-run/trailer.mp4",
+    backdrop:
+      "linear-gradient(135deg, rgba(7,12,24,0.92), rgba(11,30,50,0.92))",
   },
-  {
-    id: "g5",
-    title: "MYSTIC TALES",
-    studio: "FANTASY LABS",
-    releaseYear: "2025",
-    meta: "Adventure / Fantasy",
-    poster: "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2106&auto=format&fit=crop",
-    bgUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2104&auto=format&fit=crop",
-    preview: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4",
-    themeColor: "from-emerald-500/30 to-teal-700/30",
-    accent: "#10b981", // emerald
-  }
 ];
+
+export default games;

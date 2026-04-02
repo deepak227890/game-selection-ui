@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import VideoPlayer from "./components/VideoPlayer";
 import AmbientParticles from "./components/AmbientParticles";
-import { games } from "./data/games";
+import games from "./data/games";
 
 export default function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
